@@ -1,0 +1,27 @@
+{
+  "name": "js-uy-calendar",
+  "version": "0.1.0",
+  "description": "A simple app that queries meetup.com API for events and shows them on a calendar",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "react",
+    "js",
+    "calendar",
+    "meetup",
+    "community"
+  ],
+  "author": "Gabriel Chertok <gchertok@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "next": "^2.1.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-event-calendar": "^0.3.0"
+  }
+}
