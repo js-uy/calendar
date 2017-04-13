@@ -37,6 +37,7 @@ export default ({ month, year, groups }) => {
           .container .link {
             flex: 1;
             padding-left: 20px;
+            align-self: flex-end;
           }
 
           .container .link:last-child {

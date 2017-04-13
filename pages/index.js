@@ -35,6 +35,7 @@ export default class Index extends Component {
     return (
       <div>
         <Head>
+          <title>Calendar | ☀️.js.uy</title>
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
@@ -48,6 +49,7 @@ export default class Index extends Component {
             href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"
           />
         </Head>
+        <h1><sup>☀️</sup>.js.uy</h1>
         <Navigation groups={groups} month={month} year={year} />
         <EventCalendar
           month={month}
@@ -56,87 +58,111 @@ export default class Index extends Component {
           maxEventSlots={4}
           onEventClick={this.navigate}
         />
+        <ul className="footer">
+          <li><a href="http://js.uy">Home</a></li>
+          <li>|</li>
+          <li><a href="https://js-uy-calendar.now.sh/">Calendar</a></li>
+          <li>|</li>
+          <li><a href="http://js.uy/about">About</a></li>
+          <li>|</li>
+          <li>
+            <a href="http://js.uy/list-my-community">
+              How do I list my community?
+            </a>
+          </li>
+          <li>|</li>
+          <li>
+            <a href="http://js.uy/claim-domain">
+              How do I claim a js.uy domain?
+            </a>
+          </li>
+        </ul>
         <style jsx global>
           {
             `
-          html{
-            box-sizing:border-box
-          }
+            html { box-sizing:border-box }
+            body { font-family: 'Inconsolata', monospace; }
+            h1, h2, h3, h4 { font-family: 'Merriweather', serif; }
+            h1 {
+              text-align: center;
+              margin-bottom: 40px;
+            }
 
-          body { font-family: 'Inconsolata', monospace; }
+            .footer { max-width: 700px; margin: 20px auto; text-align: center; }
 
-          *,:after,:before{
-            box-sizing:inherit
-          }
+            .footer li { display: inline; margin-right: 4px; }
+            .footer li:last-child { margin-right: 0; }
 
-          .flexContainer{
-            max-width:100%;
-            width:100%;
-            border-top:1px solid #222222;
-            border-left:1px solid #222222;
-            -webkit-box-orient:horizontal;
-            -webkit-box-direction:normal;
-            -ms-flex-direction:row;
-            flex-direction:row;
-            -ms-flex-wrap:wrap;
-            flex-wrap:wrap;
-          }
+            *,:after,:before { box-sizing:inherit }
 
-          .flexColumn,.flexContainer {
-            display:-webkit-box;display:-ms-flexbox;display:flex
-          }
+            .flexContainer {
+              max-width:100%;
+              width:100%;
+              border-top:1px solid #222222;
+              border-left:1px solid #222222;
+              -webkit-box-orient:horizontal;
+              -webkit-box-direction:normal;
+              -ms-flex-direction:row;
+              flex-direction:row;
+              -ms-flex-wrap:wrap;
+              flex-wrap:wrap;
+            }
 
-          .flexColumn {
-            width:14.2857142857%;
-            border-bottom:1px solid #222222;
-            border-right:1px solid #222222;
-            -webkit-box-flex:0;
-            -ms-flex:0 1 auto;
-            flex:0 1 auto;
-            -webkit-box-pack:center;
-            -ms-flex-pack:center;
-            justify-content:center;
-          }
+            .flexColumn,.flexContainer {
+              display:-webkit-box;display:-ms-flexbox;display:flex
+            }
 
-          .day.inactive{
-            background-color:#f8f8f8;color:#ccc
-          }
+            .flexColumn {
+              width:14.2857142857%;
+              border-bottom:1px solid #222222;
+              border-right:1px solid #222222;
+              -webkit-box-flex:0;
+              -ms-flex:0 1 auto;
+              flex:0 1 auto;
+              -webkit-box-pack:center;
+              -ms-flex-pack:center;
+              justify-content:center;
+            }
 
-          .day.today{background-color:#fcf8e3}
+            .day.inactive{
+              background-color:#f8f8f8;color:#ccc
+            }
 
-          .day .inner-grid{width:100%;position:relative}
+            .day.today{background-color:#fcf8e3}
 
-          .day .event-slot{position:relative;margin:.5rem 0;min-height:28px;font-size:14px}
+            .day .inner-grid{width:100%;position:relative}
 
-          .day .event-slot.event{
-            background: grey;
-            color: white;
-            white-space:nowrap;
-            text-indent:-10000px;
-            cursor:pointer;
-          }
+            .day .event-slot{position:relative;margin:.5rem 0;min-height:28px;font-size:14px}
 
-          .day .event-slot .event-title{
-            position:absolute;
-            top:3.5px;
-            left:.5rem;
-            z-index:100;
-            color:#fff;
-            z-index:1;
-            overflow:visible;
-            text-indent:0;
-          }
+            .day .event-slot.event{
+              background: grey;
+              color: white;
+              white-space:nowrap;
+              text-indent:-10000px;
+              cursor:pointer;
+            }
 
-          .day .event.event-first-day{
-            margin-left:.5rem;
-          }
+            .day .event-slot .event-title{
+              position:absolute;
+              top:3.5px;
+              left:.5rem;
+              z-index:100;
+              color:#fff;
+              z-index:1;
+              overflow:visible;
+              text-indent:0;
+            }
 
-          .day .event.event-last-day{
-            margin-right:.5rem;
-          }
+            .day .event.event-first-day{
+              margin-left:.5rem;
+            }
 
-          .day .date{padding:.25rem .5rem;text-align:right}
-        `
+            .day .event.event-last-day{
+              margin-right:.5rem;
+            }
+
+            .day .date{padding:.25rem .5rem;text-align:right}
+            `
           }
         </style>
       </div>
