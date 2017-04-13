@@ -1,18 +1,15 @@
 import jsonp from 'jsonp-client';
 import moment from 'moment';
 
-export const getEvents = groups => {
-  const urls = groups.map(
-    (group, index) =>
-      `https://api.meetup.com/${group}/events?&sign=false&photo-host=public&page=1&callback=cb${index}`
-  );
+export const getEvents = (groups, start, end) => {
+  const url = `https://api.meetup.com/2/events?&time=${start.format('x')},${end.format('x')}&sign=false&photo-host=public&group_id=${groups.join(',')}&page=100&only=time,group.name,group.id,event_url&status=upcoming,past&callback=cb`;
   return new Promise((resolve, reject) => {
-    jsonp(urls, (err, ...rest) => {
+    jsonp(url, (err, data) => {
       if (err) reject(err);
-      else resolve(rest.map(r => r.data));
+      else resolve(data);
     });
   })
-    .then(results => results.map(result => result[0]))
+    .then(data => data.results)
     .then(events => {
       return events.map(event => ({
         start: moment(event.time).format('YYYY-MM-DD'),

@@ -7,11 +7,11 @@ import Navigation from '../components/Navigation';
 import { getEvents } from '../services';
 
 const DEFAULT_GROUPS = [
-  'ember-montevideo',
-  'Angular-MVD',
-  'ReactJS-Uruguay',
-  'montevideojs',
-  'Front-end-MVD'
+  12641372, // ember-montevideo
+  20489638, // ReactJS-Uruguay
+  18755240, // Angular-MVD
+  5844892, // montevideojs
+  18200397 // Front-end-MVD
 ];
 
 export default class Index extends Component {
@@ -19,19 +19,20 @@ export default class Index extends Component {
     const year = query.year ? Number(query.year) : moment().year();
     const month = query.month ? Number(query.month) - 1 : moment().month();
     const groups = query.groups || DEFAULT_GROUPS;
-    const events = await getEvents(groups);
+    const startOfMonth = moment({ year, month }).startOf('month');
+    const endOfMonth = moment({ year, month }).endOf('month');
+    const events = await getEvents(groups, startOfMonth, endOfMonth);
     return { month, year, groups, events };
   }
 
   navigate = (_, event) => {
     if (location) {
-      location.href = event.data.link;
+      location.href = event.data.event_url;
     }
   };
   render() {
     const { events, month, year, groups } = this.props;
     if (!events) return <span>Loading...</span>;
-    if (events.length <= 0) return <span>No events this month...</span>;
     return (
       <div>
         <Head>
