@@ -12,7 +12,7 @@ export default ({ month, year, groups }) => {
       <Link
         href={{
           pathname: '/',
-          query: { groups, month: previous.month() + 1, year: next.year() }
+          query: { groups, month: previous.month() + 1, year: previous.year() }
         }}
       >
         <a className="link">Previous</a>
