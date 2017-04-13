@@ -2,49 +2,34 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
 import EventCalendar from 'react-event-calendar';
-import Navigation from '../components/Navigation';
 import moment from 'moment';
+import Navigation from '../components/Navigation';
+import { getEvents } from '../services';
+
+const DEFAULT_GROUPS = [
+  'ember-montevideo',
+  'Angular-MVD',
+  'ReactJS-Uruguay',
+  'montevideojs',
+  'Front-end-MVD'
+];
 
 export default class Index extends Component {
   static async getInitialProps({ query }) {
-    const { month, year } = query;
-    return {
-      month: month ? Number(month) - 1 : moment().month(),
-      year: year ? Number(year) : moment().year(),
-      events: [
-        {
-          start: '2017-04-01',
-          end: '2017-04-01',
-          title: 'test event',
-          description: 'This is a test description of an event'
-        },
-        {
-          start: '2017-04-01',
-          end: '2017-04-01',
-          title: 'test event',
-          description: 'This is a test description of an event',
-          data: 'you can add what ever random data you may want to use later'
-        },
-        {
-          start: '2017-04-01',
-          end: '2017-04-01',
-          title: 'test event',
-          description: 'This is a test description of an event',
-          data: 'you can add what ever random data you may want to use later'
-        },
-        {
-          start: '2017-04-01',
-          end: '2017-04-01',
-          title: 'test event',
-          description: 'This is a test description of an event',
-          data: 'you can add what ever random data you may want to use later'
-        }
-      ]
-    };
+    const year = query.year ? Number(query.year) : moment().year();
+    const month = query.month ? Number(query.month) - 1 : moment().month();
+    const groups = query.groups || DEFAULT_GROUPS;
+    const events = await getEvents(groups);
+    return { month, year, groups, events };
   }
 
+  navigate = (_, event) => {
+    if (location) {
+      location.href = event.data.link;
+    }
+  };
   render() {
-    const { events, month, year } = this.props;
+    const { events, month, year, groups } = this.props;
     if (!events) return <span>Loading...</span>;
     if (events.length <= 0) return <span>No events this month...</span>;
     return (
@@ -63,13 +48,13 @@ export default class Index extends Component {
             href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"
           />
         </Head>
-        <Navigation month={month} year={year} />
+        <Navigation groups={groups} month={month} year={year} />
         <EventCalendar
           month={month}
           year={year}
           events={this.props.events}
           maxEventSlots={4}
-          onEventClick={(target, eventData, day) => console.log(eventData)}
+          onEventClick={this.navigate}
         />
         <style jsx global>
           {

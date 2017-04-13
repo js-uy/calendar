@@ -2,7 +2,6 @@
   "name": "js-uy-calendar",
   "version": "0.1.0",
   "description": "A simple app that queries meetup.com API for events and shows them on a calendar",
-  "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -18,6 +17,7 @@
   "author": "Gabriel Chertok <gchertok@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "jsonp-client": "https://github.com/cherta/jsonp-client",
     "moment": "^2.18.1",
     "next": "^2.1.1",
     "react": "^15.5.4",

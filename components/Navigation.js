@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import moment from 'moment';
 
-export default ({ month, year }) => {
+export default ({ month, year, groups }) => {
   const date = moment({ month, year, day: 1 });
   const previous = date.clone().subtract(1, 'month');
   const next = date.clone().add(1, 'month');
@@ -12,7 +12,7 @@ export default ({ month, year }) => {
       <Link
         href={{
           pathname: '/',
-          query: { month: previous.month() + 1, year: next.year() }
+          query: { groups, month: previous.month() + 1, year: next.year() }
         }}
       >
         <a className="link">Previous</a>
@@ -21,7 +21,7 @@ export default ({ month, year }) => {
       <Link
         href={{
           pathname: '/',
-          query: { month: next.month() + 1, year: next.year() }
+          query: { groups, month: next.month() + 1, year: next.year() }
         }}
       >
         <a className="link">Next</a>
