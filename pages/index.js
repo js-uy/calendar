@@ -136,22 +136,18 @@ export default class Index extends Component {
             .day .event-slot{position:relative;margin:.5rem 0;min-height:28px;font-size:14px}
 
             .day .event-slot.event{
-              background: grey;
-              color: white;
+              background:grey;
+              color:white;
               white-space:nowrap;
-              text-indent:-10000px;
               cursor:pointer;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              text-align:center;
+              padding:5px 2px;
             }
 
             .day .event-slot .event-title{
-              position:absolute;
-              top:3.5px;
-              left:.5rem;
-              z-index:100;
-              color:#fff;
-              z-index:1;
-              overflow:visible;
-              text-indent:0;
+              display:inline;
             }
 
             .day .event.event-first-day{
