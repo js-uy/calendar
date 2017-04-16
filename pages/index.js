@@ -4,6 +4,7 @@ import Head from 'next/head';
 import EventCalendar from 'react-event-calendar';
 import moment from 'moment';
 import Navigation from '../components/Navigation';
+import Message from '../components/Message';
 import { getEvents } from '../services';
 
 const DEFAULT_GROUPS = [
@@ -21,8 +22,18 @@ export default class Index extends Component {
     const groups = query.groups || DEFAULT_GROUPS;
     const startOfMonth = moment({ year, month }).startOf('month');
     const endOfMonth = moment({ year, month }).endOf('month');
-    const events = await getEvents(groups, startOfMonth, endOfMonth);
-    return { month, year, groups, events };
+    let events, error;
+    try {
+      events = await getEvents(groups, startOfMonth, endOfMonth);
+    } catch (e) {
+      console.error(e);
+      error = {
+        title: 'There was an error querying meetup.com API, try reloading the browser',
+        description: 'The site uses `jsonp` to query meetup.com and sometimes the server returns an empty response making `JSON.parse` to thorow.'
+      };
+    }
+
+    return { month, year, groups, events, error };
   }
 
   navigate = (_, event) => {
@@ -31,8 +42,7 @@ export default class Index extends Component {
     }
   };
   render() {
-    const { events, month, year, groups } = this.props;
-    if (!events) return <span>Loading...</span>;
+    const { events, month, year, groups, error } = this.props;
     return (
       <div>
         <Head>
@@ -75,14 +85,18 @@ export default class Index extends Component {
           />
         </Head>
         <h1><sup>☀️</sup>.js.uy</h1>
-        <Navigation groups={groups} month={month} year={year} />
-        <EventCalendar
-          month={month}
-          year={year}
-          events={this.props.events}
-          maxEventSlots={4}
-          onEventClick={this.navigate}
-        />
+        {error && error.title
+          ? <Message title={error.title} description={error.description} />
+          : <div>
+              <Navigation groups={groups} month={month} year={year} />
+              <EventCalendar
+                month={month}
+                year={year}
+                events={this.props.events}
+                maxEventSlots={4}
+                onEventClick={this.navigate}
+              />
+            </div>}
         <ul className="footer">
           <li><a href="http://js.uy">Home</a></li>
           <li>|</li>
