@@ -49,6 +49,30 @@ export default class Index extends Component {
             rel="stylesheet"
             href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"
           />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            (i[r] = i[r] ||
+              function() {
+                (i[r].q = i[r].q || []).push(arguments);
+              }), (i[r].l = 1 * new Date());
+            (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+          })(
+            window,
+            document,
+            'script',
+            'https://www.google-analytics.com/analytics.js',
+            'ga'
+          );
+
+          ga('create', 'UA-55094322-2', 'auto');
+          ga('send', 'pageview');`
+            }}
+          />
         </Head>
         <h1><sup>☀️</sup>.js.uy</h1>
         <Navigation groups={groups} month={month} year={year} />
@@ -79,8 +103,7 @@ export default class Index extends Component {
           </li>
         </ul>
         <style jsx global>
-          {
-            `
+          {`
             html { box-sizing:border-box }
             body { font-family: 'Inconsolata', monospace; }
             h1, h2, h3, h4 { font-family: 'Merriweather', serif; }
@@ -159,8 +182,7 @@ export default class Index extends Component {
             }
 
             .day .date{padding:.25rem .5rem;text-align:right}
-            `
-          }
+            `}
         </style>
       </div>
     );
