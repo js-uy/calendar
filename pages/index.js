@@ -12,7 +12,8 @@ const DEFAULT_GROUPS = [
   20489638, // ReactJS-Uruguay
   18755240, // Angular-MVD
   5844892, // montevideojs
-  18200397 // Front-end-MVD
+  18200397, // Front-end-MVD
+  19945900 // Elixir |> Montevideo
 ];
 
 export default class Index extends Component {
